@@ -1,7 +1,13 @@
 def converter(type_peso, dollar_value):
-    pesos = int(input(f'How much {type_peso} pesos do you have? => '))
-    dollars = pesos / dollar_value
-    print(f'You have $ {round(dollars, 2)} dollars')
+    try:
+        pesos = int(input(f'How much {type_peso} pesos do you have? => '))
+        assert pesos > 0, "The amount of pesos must be a positive integer"
+        dollars = pesos / dollar_value
+        print(f'You have $ {round(dollars, 2)} dollars')
+    except ValueError:
+        print("Invalid input. Please enter a valid integer")
+    except AssertionError as ve:
+        print(ve)
 
 def run():
     menu = """
@@ -13,7 +19,15 @@ def run():
 
     Choose an option (1,2,3) =>  """
 
-    option = int(input(menu))
+    try:
+        option = int(input(menu))
+        assert option in [1,2,3],"Invalid option, enter 1,2 or 3"
+    except ValueError:
+        print("Invalid input. Please enter a valid integer")
+        return
+    except AssertionError as ve:
+        print(ve)
+        return
 
     if option == 1:
         converter("Colombian", 4500)
